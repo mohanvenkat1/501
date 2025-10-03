@@ -1,0 +1,17 @@
+<%- include('../partials/layout', { body: `
+  <h2>Reports</h2>
+  <form method='get' action='/admin/reports' class='inline-form'>
+    <label>From <input type='datetime-local' name='from' value='${fromDate ? new Date(fromDate).toISOString().slice(0,16) : ""}' /></label>
+    <label>To <input type='datetime-local' name='to' value='${toDate ? new Date(toDate).toISOString().slice(0,16) : ""}' /></label>
+    <button class='btn' type='submit'>Apply</button>
+  </form>
+  <div class='cards'>
+    <div class='card'>Total: ${summary.total}</div>
+    <div class='card'>Completed: ${summary.completed}</div>
+    <div class='card'>Cancelled: ${summary.cancelled}</div>
+  </div>
+  <h3>Popularity by sport</h3>
+  <ul class='list'>
+    ${bySport.map(r => `<li>${r.sport}: ${r.count}</li>`).join('')}
+  </ul>
+`}) %>

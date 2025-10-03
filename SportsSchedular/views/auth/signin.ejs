@@ -1,0 +1,22 @@
+<%- include('../partials/layout', { body: `
+  <section class='form-card'>
+    <h2 class='form-title'>Welcome back</h2>
+    <p class='muted'>Sign in to continue to your dashboard.</p>
+    <form method='post' action='/signin' novalidate>
+      <input type='hidden' name='_csrf' value='${csrfToken}' />
+      <label for='email'>Email</label>
+      <input id='email' type='email' name='email' autocomplete='email' required placeholder='you@example.com' />
+      <label for='password'>Password</label>
+      <input id='password' type='password' name='password' autocomplete='current-password' required placeholder='Your password' />
+      <label for='role'>Role</label>
+      <select id='role' name='role' required>
+        <option value='player'>Player</option>
+        <option value='admin'>Admin</option>
+      </select>
+      <div class='helper'>
+        <span class='muted'>No account? <a href='/signup'>Create one</a></span>
+        <button class='btn' type='submit'>Sign in</button>
+      </div>
+    </form>
+  </section>
+`}) %>

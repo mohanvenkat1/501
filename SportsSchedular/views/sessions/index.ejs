@@ -1,0 +1,30 @@
+<%- include('../partials/layout', { body: `
+  <div class='flex-between'>
+    <h2>Sessions</h2>
+    <a class='btn' href='/sessions/new'>Create Session</a>
+  </div>
+
+  <h3>Upcoming sessions</h3>
+  <ul class='list'>
+    ${upcoming.map(s => `<li>
+      <a href='/sessions/${s._id}'>${s.sport?.name} - ${new Date(s.startTime).toLocaleString()}</a>
+      <span class='muted'>by ${s.createdBy?.name} at ${s.venue}</span>
+    </li>`).join('')}
+  </ul>
+
+  <h3>My created sessions</h3>
+  <ul class='list'>
+    ${myCreated.map(s => `<li>
+      <a href='/sessions/${s._id}'>${s.sport?.name} - ${new Date(s.startTime).toLocaleString()}</a>
+      <span class='badge ${s.status}'>${s.status}</span>
+    </li>`).join('')}
+  </ul>
+
+  <h3>My joined sessions</h3>
+  <ul class='list'>
+    ${myJoined.map(s => `<li>
+      <a href='/sessions/${s._id}'>${s.sport?.name} - ${new Date(s.startTime).toLocaleString()}</a>
+      <span class='badge ${s.status}'>${s.status}</span>
+    </li>`).join('')}
+  </ul>
+`}) %>

@@ -1,0 +1,8 @@
+<%- include('../partials/layout', { body: `
+  <h2>Create Sport</h2>
+  <form method='post' action='/admin/sports'>
+    <input type='hidden' name='_csrf' value='${csrfToken}' />
+    <label>Sport Name <input type='text' name='name' required /></label>
+    <button class='btn' type='submit'>Create</button>
+  </form>
+`}) %>

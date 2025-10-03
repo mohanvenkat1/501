@@ -1,0 +1,42 @@
+<%- include('../partials/layout', { body: `
+  <h2>${sess.sport_name} - ${new Date(sess.start_time).toLocaleString()}</h2>
+  <p class='muted'>Created by ${sess.creator_name} at ${sess.venue}</p>
+  ${sess.status === 'cancelled' ? `<p class='badge cancelled'>Cancelled</p><p><strong>Reason:</strong> ${sess.cancel_reason || 'N/A'}</p>` : ''}
+
+  <div class='grid-2'>
+    <div>
+      <h3>Team A</h3>
+      <p>${(sess.team_a || '').split(',').filter(Boolean).map(p => p.trim()).join(', ') || '—'}</p>
+    </div>
+    <div>
+      <h3>Team B</h3>
+      <p>${(sess.team_b || '').split(',').filter(Boolean).map(p => p.trim()).join(', ') || '—'}</p>
+    </div>
+  </div>
+  <p>Looking for: ${sess.looking_for} more</p>
+
+  <h3>Participants</h3>
+  <ul class='list'>
+    ${participants.map(p => `<li>${p.name} <span class='muted'>(${p.email})</span></li>`).join('')}
+  </ul>
+
+  ${(!joined && sess.status === 'scheduled') ? `
+  <form method='post' action='/sessions/${sess.id}/join'>
+    <input type='hidden' name='_csrf' value='${csrfToken}' />
+    <button class='btn' type='submit'>Join session</button>
+  </form>
+  ` : '<p class=\'muted\'>' + (joined ? 'You have joined this session.' : '') + '</p>'}
+
+  ${canManage && sess.status === 'scheduled' ? `
+  <details>
+    <summary>Cancel session</summary>
+    <form method='post' action='/sessions/${sess.id}/cancel'>
+      <input type='hidden' name='_csrf' value='${csrfToken}' />
+      <label>Reason
+        <input type='text' name='reason' placeholder='Optional reason' />
+      </label>
+      <button class='btn danger' type='submit'>Cancel session</button>
+    </form>
+  </details>
+  ` : ''}
+`}) %>

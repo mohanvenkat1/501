@@ -1,0 +1,7 @@
+<%- include('../partials/layout', { body: `
+  <h2>My Sports</h2>
+  <p><a class='btn' href='/admin/sports/new'>Create new sport</a></p>
+  <ul class='list'>
+    ${sports.map(s => `<li>${s.name} <span class='muted'>(created ${new Date(s.createdAt).toLocaleString()})</span></li>`).join('')}
+  </ul>
+`}) %>

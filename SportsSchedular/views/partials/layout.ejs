@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sports Scheduler</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <nav class="nav">
+    <a class="brand" href="/">Sports Scheduler</a>
+    <% if (currentUser) { %>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/sessions">Sessions</a>
+      <% if (currentUser.role === 'admin') { %>
+        <a href="/admin/sports">Admin: Sports</a>
+        <a href="/admin/reports">Admin: Reports</a>
+      <% } %>
+      <form action="/signout" method="post" style="display:inline">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+        <button type="submit" class="btn ghost">Sign out (<%= currentUser.name %>)</button>
+      </form>
+    <% } else { %>
+      <a class="btn ghost" href="/signin">Sign in</a>
+      <a class="btn" href="/signup">Sign up</a>
+    <% } %>
+  </nav>
+
+  <main class="container">
+    <% if (flash.error && flash.error.length) { %>
+      <div class="flash error"><%= flash.error.join('<br/>') %></div>
+    <% } %>
+    <% if (flash.success && flash.success.length) { %>
+      <div class="flash success"><%= flash.success.join('<br/>') %></div>
+    <% } %>
+
+    <%- body %>
+  </main>
+</body>
+</html>

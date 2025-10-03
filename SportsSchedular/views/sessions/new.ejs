@@ -1,0 +1,28 @@
+<%- include('../partials/layout', { body: `
+  <h2>New Session</h2>
+  <form method='post' action='/sessions'>
+    <input type='hidden' name='_csrf' value='${csrfToken}' />
+    <label>Sport
+      <select name='sport_id' required>
+        <option value=''>-- select sport --</option>
+        ${sports.map(s => `<option value='${s._id}'>${s.name}</option>`).join('')}
+      </select>
+    </label>
+    <label>Team A players (comma separated)
+      <input type='text' name='team_a' />
+    </label>
+    <label>Team B players (comma separated)
+      <input type='text' name='team_b' />
+    </label>
+    <label>Additional players needed
+      <input type='number' min='0' name='looking_for' value='0' />
+    </label>
+    <label>Date & time
+      <input type='datetime-local' name='start_time' required />
+    </label>
+    <label>Venue
+      <input type='text' name='venue' required />
+    </label>
+    <button class='btn' type='submit'>Create</button>
+  </form>
+`}) %>

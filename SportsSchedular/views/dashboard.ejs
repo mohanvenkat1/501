@@ -1,0 +1,12 @@
+<%- include('partials/layout', { body: `
+  <section>
+    <h2>Dashboard</h2>
+    <p>Welcome, ${currentUser.name}! (${currentUser.role})</p>
+    <div class='cards'>
+      <div class='card'><a href='/sessions'>Browse Sessions</a></div>
+      <div class='card'><a href='/sessions/new'>Create a Session</a></div>
+      ${currentUser.role === 'admin' ? `<div class='card'><a href='/admin/sports'>Manage Sports</a></div>` : ''}
+      ${currentUser.role === 'admin' ? `<div class='card'><a href='/admin/reports'>View Reports</a></div>` : ''}
+    </div>
+  </section>
+`}) %>
